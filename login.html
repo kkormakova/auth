@@ -1,0 +1,85 @@
+<!-- ================ start banner area ================= -->	
+<section class="blog-banner-area" id="category">
+	<div class="container h-100">
+		<div class="blog-banner">
+			<div class="text-center">
+				<h1>Вход в личный кабинет</h1>
+				<nav aria-label="breadcrumb" class="banner-breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Главная</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Вход</li>
+				</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- ================ end banner area ================= -->
+
+<!--================Login Box Area =================-->
+<section class="login_box_area section-margin">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="login_box_img">
+					<div class="hover">
+						<h4>Впервые на нашем сайте?</h4>
+						<p>Здесь есть много чего интересного!</p>
+						<a class="button button-account" href="/reg">Создать аккаунт</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="login_form_inner">
+					<h3>Вход в личный кабинет</h3>
+					<form class="row login_form" onsubmit="checkForm(this); return false;" >
+						<div class="col-md-12 form-group">
+							<input type="email" class="form-control" name="email" placeholder="E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'E-mail'">
+						</div>
+						<div class="col-md-12 form-group">
+							<input type="password" class="form-control" name="pass" placeholder="Пароль" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Пароль'">
+						</div>
+						<div class="col-md-12 form-group">
+							<button type="submit" value="submit" class="button button-login w-100">Войти</button>
+							<a href="#">Забыли пароль?</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Login Box Area =================-->
+
+<!-- Модальное окно -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"> Не правильный логин или пароль </h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			Вы ввели не правильно логин или пароль. Попробуйте еще раз.
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	async function checkForm(form){
+		let formData = new FormData(form);
+		let response = await fetch("authUser",{
+			method: "POST",
+			body: formData,
+		});
+		let res = await response.json();
+		if (res.result == "success") {
+			location.href= "lk";
+		} else if (res.result == "error") {
+			$('#myModal').modal('show');
+		}
+	}
+</script>
